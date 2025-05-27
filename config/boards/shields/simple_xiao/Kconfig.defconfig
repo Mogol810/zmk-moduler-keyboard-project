@@ -1,5 +1,0 @@
-if SIMPLE_XIAO
-
-config ZMK_KEYBOARD_NAME
-    default "simple_xiao"
-endif

@@ -1,8 +1,0 @@
-file_format: "1"
-id: simple_xiao
-name: simple_xiao
-type: shield
-url: https://github.com/Mogol810/zmk-moduler-keyboard-project
-requires: [seeeduino_xiao_ble]
-features:
-  - keys

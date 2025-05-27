@@ -1,2 +1,0 @@
-config SIMPLE_XIAO
-    def_bool $(shields_list_contains,simple_xiao)
