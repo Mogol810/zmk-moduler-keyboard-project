@@ -1,4 +1,4 @@
-name: roBa
+name: simple_xiao
 build:
   settings:
     board_root: config
