@@ -1,0 +1,50 @@
+name: ZMK firmware build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout zmk-config
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install west
+        run: pip install west
+
+      - name: Initialize west workspace and clone ZMK
+        run: |
+          west init -l config
+          west update
+
+      - name: Export Zephyr CMake packages
+        run: west zephyr-export
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y ninja-build gperf ccache dfu-util device-tree-compiler wget \
+            python3-dev python3-pip python3-setuptools xz-utils file make gcc g++ \
+            libncurses-dev libsdl2-dev libmagic1
+
+      - name: Build ZMK firmware
+        run: |
+          west build -s zmk/app -b seeeduino_xiao_ble \
+            -- -DSHIELD=simple_xiao \
+               -DZMK_CONFIG=./config \
+               -DZMK_EXTRA_MODULES=./
+
+      - name: Upload UF2 firmware
+        uses: actions/upload-artifact@v3
+        with:
+          name: zmk.uf2
+          path: build/zephyr/zmk.uf2
