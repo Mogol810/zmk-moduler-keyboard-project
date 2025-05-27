@@ -3,11 +3,3 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      build_matrix: |
-        [
-          {
-            "board": "seeeduino_xiao_ble",
-            "shield": "simple_xiao"
-          }
-        ]
