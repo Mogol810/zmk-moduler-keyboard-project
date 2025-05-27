@@ -1,0 +1,44 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <physical_layouts.dtsi>
+
+/ {
+    chosen {
+        zmk,physical-layout = &physical_layout0;
+    };
+
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        kscan = <&kscan0>;
+        transform = <&default_transform>;
+	keys  //                      w   h x y rot rx ry
+	    = <&key_physical_attrs 100 100   0   0   0  0  0>
+	    , <&key_physical_attrs 100 100 100   0   0  0  0>
+	    , <&key_physical_attrs 100 100   0 100   0  0  0>
+	    , <&key_physical_attrs 100 100 100 100   0  0  0>
+	    ;
+    };
+
+    default_transform: keymap_transform0 {
+        compatible = "zmk,matrix-transform";
+        rows = <2>;
+        columns = <2>;
+        map = <
+            RC(0,0) RC(0,1)
+            RC(1,0) RC(1,1)
+        >;
+    };
+
+    kscan0: kscan0 {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+        col-gpios
+            = <&xiao_d 5 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 6 GPIO_ACTIVE_HIGH>
+            ;
+        row-gpios
+            = <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+    };
+};
