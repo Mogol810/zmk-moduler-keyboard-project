@@ -44,3 +44,4 @@ jobs:
         with:
           name: zmk.uf2
           path: build/zephyr/zmk.uf2
+          
