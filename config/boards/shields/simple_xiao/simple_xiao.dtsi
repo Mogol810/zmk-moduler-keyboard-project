@@ -1,4 +1,4 @@
-﻿/ {
+/ {
     matrix {
         compatible = "zmk,matrix";
         diode-direction = "col2row";
